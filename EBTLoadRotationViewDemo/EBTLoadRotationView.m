@@ -104,6 +104,14 @@
     layerCircle.path = pathCircle.CGPath;
     [viewContent.layer addSublayer:layerCircle];
     
+    CABasicAnimation *storkColor = [CABasicAnimation animationWithKeyPath:@"strokeColor"];
+    storkColor.fromValue =(__bridge id)[UIColor redColor].CGColor;
+    storkColor.toValue = (__bridge id)[UIColor blueColor].CGColor;
+    storkColor.repeatCount = MAXFLOAT;
+    storkColor.duration = 0.5f;
+    storkColor.fillMode = kCAFillModeForwards;
+    layerCircle.opacity = 0.5;
+    [layerCircle addAnimation:storkColor forKey:@"strokeColorAnimation"];
     
     animationRotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     animationRotation.toValue = @(M_PI * 2);
@@ -130,6 +138,7 @@
         [UIView animateWithDuration:1.f animations:^{
             
             [viewContent.layer removeAnimationForKey:@"RotationAnimation"];
+            [layerCircle removeAnimationForKey:@"strokeColorAnimation"];
             
         } completion:^(BOOL finished) {
             
